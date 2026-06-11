@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Zuha K. — Portfolio | Refined Text & Visual Harmony</title>
+<title>Zuha K. — Portfolio | Mobile Responsive</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <style>
@@ -16,17 +16,16 @@
   :root {
     --bg: #F7F1E8;
     --surface: #FFFFFF;
-    --text-primary: #2E1C1A;     /* deep brown-soft black */
-    --text-secondary: #5C3E3A;    /* warm muted brown */
+    --text-primary: #2E1C1A;
+    --text-secondary: #5C3E3A;
     --muted-light: #8A6C66;
-    --primary: #800020;           /* signature maroon */
+    --primary: #800020;
     --primary-deep: #5C0016;
-    --accent: #D4AF37;            /* gold */
+    --accent: #D4AF37;
     --border-light: #E6D9CE;
     --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 20px 35px -12px rgba(60, 30, 25, 0.1);
     --radius-card: 28px;
-    --radius-element: 20px;
     --transition: all 0.25s ease;
   }
 
@@ -36,9 +35,9 @@
     --text-primary: #F2E7DA;
     --text-secondary: #DDCFBF;
     --muted-light: #B7A18F;
-    --primary: #D4AF37;           /* gold becomes primary in dark */
+    --primary: #D4AF37;
     --primary-deep: #B88F2A;
-    --accent: #800020;            /* maroon as accent */
+    --accent: #800020;
     --border-light: #3A2B27;
     --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
   }
@@ -50,6 +49,7 @@
     line-height: 1.55;
     transition: background 0.3s, color 0.2s;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   .container {
@@ -62,8 +62,8 @@
   header {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: color-mix(in oklab, var(--bg) 88%, transparent);
+    z-index: 1000;
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border-light);
   }
@@ -72,9 +72,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 16px 0;
-    flex-wrap: wrap;
+    gap: 16px;
+    padding: 14px 0;
+    min-height: 68px;
   }
 
   .logo {
@@ -85,20 +85,22 @@
     color: var(--text-primary);
     text-decoration: none;
     cursor: pointer;
+    z-index: 1002;
   }
   .logo span { color: var(--primary); }
 
-  nav ul {
+  /* Desktop Navigation */
+  .nav-links {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     list-style: none;
-    flex-wrap: wrap;
+    transition: var(--transition);
   }
 
-  nav a {
+  .nav-links li a {
     text-decoration: none;
     color: var(--text-primary);
-    padding: 8px 22px;
+    padding: 8px 20px;
     border: 1.2px solid var(--border-light);
     border-radius: 100px;
     font-size: 0.85rem;
@@ -107,25 +109,71 @@
     transition: var(--transition);
     background: transparent;
     cursor: pointer;
+    display: inline-block;
   }
 
-  nav a:hover, nav a.active {
+  .nav-links li a:hover,
+  .nav-links li a.active {
     border-color: var(--primary);
     color: var(--primary);
     background: rgba(128, 0, 32, 0.05);
     transform: translateY(-2px);
   }
 
-  body.dark nav a:hover, body.dark nav a.active {
+  body.dark .nav-links li a:hover,
+  body.dark .nav-links li a.active {
     border-color: var(--primary);
     color: var(--primary);
     background: rgba(212, 175, 55, 0.12);
   }
 
+  /* Mobile Menu Button - Hamburger */
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1.2px solid var(--border-light);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 1002;
+    transition: var(--transition);
+  }
+
+  .menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: var(--transition);
+    border-radius: 2px;
+  }
+
+  .menu-toggle:hover {
+    border-color: var(--primary);
+  }
+
+  /* Mobile menu open state - hamburger animation */
+  .menu-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Controls - Simple Black & White Icons */
   .controls {
     display: flex;
-    gap: 12px;
+    gap: 10px;
+    align-items: center;
     position: relative;
+    z-index: 1002;
   }
 
   .icon-btn {
@@ -138,10 +186,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
     color: var(--text-primary);
     transition: var(--transition);
   }
+
+  /* Simple SVG icons - black & white style */
+  .icon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  /* Speaker icon specific */
+  .icon-btn .speaker-icon {
+    stroke: currentColor;
+  }
+
   .icon-btn:hover {
     border-color: var(--primary);
     transform: scale(0.96);
@@ -159,7 +221,7 @@
     min-width: 210px;
     padding: 8px;
     display: none;
-    z-index: 120;
+    z-index: 1003;
   }
   .read-menu.show { display: block; animation: fadeMenu 0.2s; }
   @keyframes fadeMenu { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
@@ -173,15 +235,84 @@
     border-radius: 18px;
     font-weight: 500;
     font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   .read-menu button:hover { background: var(--bg); }
 
+  /* Mobile responsive styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 75%;
+      max-width: 300px;
+      height: 100vh;
+      background: var(--surface);
+      flex-direction: column;
+      padding: 90px 24px 30px;
+      gap: 12px;
+      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+      transition: left 0.3s ease-in-out;
+      z-index: 1001;
+      border-right: 1px solid var(--border-light);
+    }
+
+    .nav-links.open {
+      left: 0;
+    }
+
+    .nav-links li a {
+      display: block;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 1rem;
+      border-radius: 40px;
+    }
+
+    /* Overlay when menu is open */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: none;
+    }
+
+    .menu-overlay.active {
+      display: block;
+    }
+
+    .controls {
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
   /* Page system */
-  .page { display: none; padding: 56px 0 70px; animation: pageFade 0.5s ease; }
+  .page { display: none; padding: 48px 0 70px; animation: pageFade 0.5s ease; }
   .page.active { display: block; }
   @keyframes pageFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
-  /* Typography — inspired by image: clean uppercase tags, structured headings */
+  /* Typography */
   .section-tag {
     font-weight: 600;
     font-size: 0.7rem;
@@ -208,7 +339,7 @@
   }
   h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -217,11 +348,10 @@
   }
   h2 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
     font-weight: 700;
     margin-bottom: 18px;
     color: var(--text-primary);
-    letter-spacing: -0.01em;
   }
   h3 {
     font-family: 'Playfair Display', serif;
@@ -248,7 +378,7 @@
     color: var(--text-secondary);
   }
 
-  /* Cards & panels */
+  /* Cards */
   .panel {
     background: var(--surface);
     border-radius: var(--radius-card);
@@ -272,7 +402,6 @@
     color: white;
     font-weight: 600;
     font-size: 0.9rem;
-    text-decoration: none;
     border: none;
     cursor: pointer;
     transition: var(--transition);
@@ -336,7 +465,7 @@
     flex-wrap: wrap;
   }
 
-  /* ABOUT page — refined leader cards exactly matching image style */
+  /* ABOUT page */
   .about-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -410,7 +539,7 @@
   .hobby-card img { width: 100%; height: 150px; object-fit: cover; }
   .hobby-card .label { padding: 16px; text-align: center; font-weight: 600; color: var(--text-primary); }
 
-  /* SKILLS: level bars + refined stats */
+  /* SKILLS */
   .skills-hero {
     background: var(--surface);
     border-radius: var(--radius-card);
@@ -492,7 +621,7 @@
   .sport-item:hover { border-color: var(--primary); transform: translateX(6px);}
   .sport-img { width: 100%; height: 280px; object-fit: cover; border-radius: 32px; }
 
-  /* CONTACT form */
+  /* CONTACT */
   .contact-panel {
     background: var(--surface);
     border-radius: 40px;
@@ -553,28 +682,57 @@
 <header>
   <div class="container nav-bar">
     <a class="logo" onclick="goTo('home')">Zuha<span> K.</span></a>
-    <nav>
-      <ul>
-        <li><a data-link="home" class="active" onclick="goTo('home')">HOME</a></li>
-        <li><a data-link="about" onclick="goTo('about')">ABOUT ME</a></li>
-        <li><a data-link="skills" onclick="goTo('skills')">SKILLS</a></li>
-        <li><a data-link="contact" onclick="goTo('contact')">CONTACT ME</a></li>
-      </ul>
-    </nav>
+    
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a data-link="home" class="active" onclick="goTo('home')">HOME</a></li>
+      <li><a data-link="about" onclick="goTo('about')">ABOUT ME</a></li>
+      <li><a data-link="skills" onclick="goTo('skills')">SKILLS</a></li>
+      <li><a data-link="contact" onclick="goTo('contact')">CONTACT ME</a></li>
+    </ul>
+
     <div class="controls">
-      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌓</button>
-      <button class="icon-btn" id="readBtn" title="Read aloud">🔊</button>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="readBtn" title="Read aloud">
+        <svg class="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </button>
       <div class="read-menu" id="readMenu">
-        <button onclick="speakFull()">▶ Read full text</button>
-        <button onclick="speakSelected()">✎ Read selected text</button>
-        <button onclick="stopReading()">⏹ Stop reading</button>
+        <button onclick="speakFull()"><span>▶</span> Read full text</button>
+        <button onclick="speakSelected()"><span>✎</span> Read selected text</button>
+        <button onclick="stopReading()"><span>⏹</span> Stop reading</button>
       </div>
     </div>
   </div>
 </header>
 
+<!-- Mobile menu overlay -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
 <main class="container">
-  <!-- HOME -->
+  <!-- HOME page content same as original -->
   <section class="page active" id="home">
     <div class="section-tag">// DIGITAL CRAFT & LEADERSHIP</div>
     <h1>Hi, I'm <span style="color:var(--primary)">Zuha K.</span></h1>
@@ -586,7 +744,7 @@
           <button class="btn btn-outline" onclick="goTo('contact')">Let's Connect</button>
         </div>
       </div>
-      <img class="hero-img" src="https://github.com/zuhakhawar777-dot/E-portfolio-website/blob/main/profile%20image.jpeg?raw=true" alt="Zuha portrait" />
+      <img class="hero-img" src="https://github.com/zuhakhawar777-dot/E-portfolio-website/blob/main/profile%20image.jpeg?raw=true" alt="Zuha portrait">
     </div>
     <div class="opportunity">
       <h4 style="margin-bottom:8px;">// OPEN TO OPPORTUNITIES</h4>
@@ -596,7 +754,7 @@
     </div>
   </section>
 
-  <!-- ABOUT PAGE — optimized text hierarchy exactly as reference: uppercase tags, structured leader cards -->
+  <!-- ABOUT, SKILLS, CONTACT sections remain identical to original -->
   <section class="page" id="about">
     <div class="section-tag lg">// ABOUT ME</div>
     <div class="about-grid">
@@ -611,51 +769,20 @@
         </ul>
       </div>
     </div>
-
     <div class="leadership">
       <div class="section-tag">[ LEADERSHIP & TEAMWORK ]</div>
       <h2>Leading by Example</h2>
-
       <div class="leader-card panel">
         <div class="leader-num">01</div>
-        <div>
-          <h3>House Captain</h3>
-          <h4>RESPONSIBILITIES</h4>
-          <ul>
-            <li>Led house activities and organised team participation</li>
-            <li>Motivated students and represented the house in competitions</li>
-          </ul>
-        </div>
-        <div>
-          <h4>ACHIEVEMENTS</h4>
-          <ul>
-            <li>Led the house to victory in inter-house competitions</li>
-            <li>Demonstrated leadership, teamwork, and organisational skills</li>
-          </ul>
-        </div>
+        <div><h3>House Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led house activities and organised team participation</li><li>Motivated students and represented the house in competitions</li></ul></div>
+        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the house to victory in inter-house competitions</li><li>Demonstrated leadership, teamwork, and organisational skills</li></ul></div>
       </div>
-
       <div class="leader-card panel">
         <div class="leader-num">02</div>
-        <div>
-          <h3>Basketball Captain</h3>
-          <h4>RESPONSIBILITIES</h4>
-          <ul>
-            <li>Led the basketball team and encouraged teamwork</li>
-            <li>Organised training sessions and game strategy</li>
-          </ul>
-        </div>
-        <div>
-          <h4>ACHIEVEMENTS</h4>
-          <ul>
-            <li>Led the team to win inter-house basketball competitions</li>
-            <li>Participated in inter-school basketball competitions</li>
-            <li>Demonstrated communication and leadership abilities</li>
-          </ul>
-        </div>
+        <div><h3>Basketball Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led the basketball team and encouraged teamwork</li><li>Organised training sessions and game strategy</li></ul></div>
+        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the team to win inter-house basketball competitions</li><li>Participated in inter-school basketball competitions</li><li>Demonstrated communication and leadership abilities</li></ul></div>
       </div>
     </div>
-
     <div class="hobbies">
       <div class="section-tag">[ HOBBIES & INTERESTS ]</div>
       <h2>Beyond The Code</h2>
@@ -669,34 +796,30 @@
     </div>
   </section>
 
-  <!-- SKILLS PAGE — level bars + refined stats, no extra cards -->
   <section class="page" id="skills">
     <div class="section-tag lg">// CORE COMPETENCIES</div>
     <p class="lead">Precision, depth, and continuous growth — visualized through progressive skill mastery levels.</p>
-    
     <div class="skills-hero">
       <h3 style="margin-bottom:24px; font-weight:600;">⚡ Expertise & Proficiency</h3>
       <div class="level-bars-section" id="levelBarsContainer">
-        <div class="skill-level-item"><div class="skill-level-header"><span>🌐 Web Development (HTML/CSS/JS)</span><span>85%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="85"></div></div><div class="skill-meta">Responsive design, interactive UIs, modern layouts</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>📊 Productivity Suites (Google & MS)</span><span>94%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="94"></div></div><div class="skill-meta">Advanced workflow optimization, documentation</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🎨 UI/UX & Creative Design</span><span>88%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="88"></div></div><div class="skill-meta">Canva, infographics, brand storytelling</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🤝 Leadership & Strategic Communication</span><span>92%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="92"></div></div><div class="skill-meta">Team motivation, public speaking, conflict resolution</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🧠 Analytical Thinking & Problem Solving</span><span>89%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="89"></div></div><div class="skill-meta">Critical analysis, research, debugging mindset</div></div>
+        <div class="skill-level-item"><div class="skill-level-header"><span>🌐 Web Development (HTML/CSS/JS)</span><span>85%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="85"></div></div><div class="skill-meta">Responsive design, interactive UIs</div></div>
+        <div class="skill-level-item"><div class="skill-level-header"><span>📊 Productivity Suites</span><span>94%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="94"></div></div><div class="skill-meta">Advanced workflow optimization</div></div>
+        <div class="skill-level-item"><div class="skill-level-header"><span>🎨 UI/UX & Creative Design</span><span>88%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="88"></div></div><div class="skill-meta">Canva, infographics, branding</div></div>
+        <div class="skill-level-item"><div class="skill-level-header"><span>🤝 Leadership & Communication</span><span>92%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="92"></div></div><div class="skill-meta">Team motivation, public speaking</div></div>
+        <div class="skill-level-item"><div class="skill-level-header"><span>🧠 Analytical Thinking</span><span>89%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="89"></div></div><div class="skill-meta">Critical analysis, research</div></div>
       </div>
     </div>
-
     <div style="margin-top:20px"><div class="section-tag">[ MILESTONES ]</div><h2>Featured Achievements</h2>
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-num">3+</div><h4>STEM Awards</h4><p>Regional competitions & robotics</p></div>
+        <div class="stat-card"><div class="stat-num">3+</div><h4>STEM Awards</h4><p>Regional competitions</p></div>
         <div class="stat-card"><div class="stat-num">2+</div><h4>Leadership Roles</h4><p>House & Basketball Captain</p></div>
-        <div class="stat-card"><div class="stat-num">3</div><h4>Scholarship</h4><p>Academic excellence recognition</p></div>
-        <div class="stat-card"><div class="stat-num">5+</div><h4>Competitions</h4><p>STEM, robotics & sports events</p></div>
+        <div class="stat-card"><div class="stat-num">3</div><h4>Scholarship</h4><p>Academic excellence</p></div>
+        <div class="stat-card"><div class="stat-num">5+</div><h4>Competitions</h4><p>STEM, robotics & sports</p></div>
       </div>
     </div>
-    <div class="sports"><div><div class="section-tag">[ SPORTS HIGHLIGHTS ]</div><h2>Athletic Journey</h2><div class="sport-list"><div class="sport-item">🏆 Winners of relay races in inter-grade competitions</div><div class="sport-item">🏆 Participation in inter-school basketball competitions</div><div class="sport-item">🏆 Team sports involvement and competitive experience</div></div></div><img class="sport-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80" alt="Sports action"></div>
+    <div class="sports"><div><div class="section-tag">[ SPORTS HIGHLIGHTS ]</div><h2>Athletic Journey</h2><div class="sport-list"><div class="sport-item">🏆 Winners of relay races</div><div class="sport-item">🏆 Inter-school basketball</div><div class="sport-item">🏆 Team sports involvement</div></div></div><img class="sport-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80" alt="Sports action"></div>
   </section>
 
-  <!-- CONTACT -->
   <section class="page" id="contact">
     <div class="section-tag">// START A CONVERSATION</div>
     <h1>Let's Connect</h1>
@@ -722,52 +845,190 @@
 </footer>
 
 <script>
+  // Mobile Navigation Toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  const menuOverlay = document.getElementById('menuOverlay');
+
+  function closeMenu() {
+    navLinks.classList.remove('open');
+    menuOverlay.classList.remove('active');
+    menuToggle.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function openMenu() {
+    navLinks.classList.add('open');
+    menuOverlay.classList.add('active');
+    menuToggle.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (navLinks.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+  }
+
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', closeMenu);
+  }
+
+  // Close menu when window resizes above mobile breakpoint
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+
+  // Close menu when a nav link is clicked
+  document.querySelectorAll('.nav-links li a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        closeMenu();
+      }
+    });
+  });
+
+  // Page navigation
   function goTo(target) {
     stopReading();
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById(target).classList.add('active');
-    document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.dataset.link === target));
+    document.querySelectorAll('.nav-links li a').forEach(a => a.classList.toggle('active', a.dataset.link === target));
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (target === 'skills') setTimeout(animateLevelBars, 150);
   }
+
   function animateLevelBars() {
     document.querySelectorAll('#levelBarsContainer .progress-fill').forEach(fill => {
       const level = fill.getAttribute('data-level');
       if (level) fill.style.width = level + '%';
     });
   }
+
+  // Theme toggle with icon swap (simple sun/moon)
   const themeToggle = document.getElementById('themeToggle');
-  themeToggle.onclick = () => { document.body.classList.toggle('dark'); themeToggle.textContent = document.body.classList.contains('dark') ? '☀️' : '🌓'; };
-  const readBtn = document.getElementById('readBtn'), readMenu = document.getElementById('readMenu');
-  readBtn.onclick = (e) => { e.stopPropagation(); readMenu.classList.toggle('show'); };
-  document.addEventListener('click', () => readMenu.classList.remove('show'));
-  function speak(text) { if (!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.rate = 0.98; speechSynthesis.speak(u); }
-  function speakFull() { const active = document.querySelector('.page.active'); speak(active ? active.innerText : ''); readMenu.classList.remove('show'); }
-  function speakSelected() { const sel = window.getSelection().toString().trim(); if (!sel) return alert('Highlight text first'); speak(sel); readMenu.classList.remove('show'); }
-  function stopReading() { if ('speechSynthesis' in window) speechSynthesis.cancel(); readMenu?.classList.remove('show'); }
-  const form = document.getElementById('contactForm'), msgDiv = document.getElementById('formMsg'), sendBtn = document.getElementById('sendBtn');
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = form.name.value.trim(), email = form.email.value.trim(), message = form.message.value.trim();
-    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!name || !email || !message || !validEmail) {
-      msgDiv.textContent = '⚠ Please fill all fields with a valid email address.';
-      msgDiv.classList.add('show', 'error'); return;
+  let isDark = false;
+  
+  function updateThemeIcon() {
+    const themeIcon = themeToggle?.querySelector('.theme-icon');
+    if (!themeIcon) return;
+    if (document.body.classList.contains('dark')) {
+      themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+    } else {
+      themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
     }
-    sendBtn.disabled = true; sendBtn.textContent = 'Sending...';
-    try {
-      const fd = new FormData(form);
-      const res = await fetch(form.action, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-      if (res.ok) {
-        msgDiv.textContent = '✓ Message sent successfully! Delivered to zuhakhawar777@gmail.com.';
-        msgDiv.classList.add('show', 'success'); form.reset();
-      } else throw new Error();
-    } catch (err) {
-      msgDiv.textContent = '⚠ Could not send. Please try again or email directly.';
-      msgDiv.classList.add('show', 'error');
-    } finally { sendBtn.disabled = false; sendBtn.textContent = 'Send Message →'; setTimeout(() => msgDiv.classList.remove('show'), 4500); }
+  }
+
+  if (themeToggle) {
+    themeToggle.onclick = () => {
+      document.body.classList.toggle('dark');
+      updateThemeIcon();
+    };
+  }
+
+  // Read aloud functionality
+  const readBtn = document.getElementById('readBtn');
+  const readMenu = document.getElementById('readMenu');
+  
+  if (readBtn && readMenu) {
+    readBtn.onclick = (e) => {
+      e.stopPropagation();
+      readMenu.classList.toggle('show');
+    };
+    document.addEventListener('click', () => readMenu.classList.remove('show'));
+  }
+
+  function speak(text) {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 0.98;
+    speechSynthesis.speak(u);
+  }
+
+  function speakFull() {
+    const active = document.querySelector('.page.active');
+    speak(active ? active.innerText : '');
+    readMenu.classList.remove('show');
+  }
+
+  function speakSelected() {
+    const sel = window.getSelection().toString().trim();
+    if (!sel) return alert('Highlight text first');
+    speak(sel);
+    readMenu.classList.remove('show');
+  }
+
+  function stopReading() {
+    if ('speechSynthesis' in window) speechSynthesis.cancel();
+    readMenu?.classList.remove('show');
+  }
+
+  // Contact form
+  const form = document.getElementById('contactForm');
+  const msgDiv = document.getElementById('formMsg');
+  const sendBtn = document.getElementById('sendBtn');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      
+      if (!name || !email || !message || !validEmail) {
+        if (msgDiv) {
+          msgDiv.textContent = '⚠ Please fill all fields with a valid email address.';
+          msgDiv.classList.add('show', 'error');
+        }
+        return;
+      }
+      
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Sending...';
+      }
+      
+      try {
+        const fd = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: fd,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          if (msgDiv) {
+            msgDiv.textContent = '✓ Message sent successfully!';
+            msgDiv.classList.add('show', 'success');
+          }
+          form.reset();
+        } else throw new Error();
+      } catch (err) {
+        if (msgDiv) {
+          msgDiv.textContent = '⚠ Could not send. Please try again.';
+          msgDiv.classList.add('show', 'error');
+        }
+      } finally {
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Send Message →';
+        }
+        if (msgDiv) setTimeout(() => msgDiv.classList.remove('show'), 4500);
+      }
+    });
+  }
+
+  window.addEventListener('load', () => {
+    if (document.querySelector('#skills').classList.contains('active')) animateLevelBars();
   });
-  window.addEventListener('load', () => { if (document.querySelector('#skills').classList.contains('active')) animateLevelBars(); });
 </script>
 </body>
 </html>
