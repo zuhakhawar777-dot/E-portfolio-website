@@ -156,7 +156,6 @@
     border-color: var(--primary);
   }
 
-  /* Mobile menu open state - hamburger animation */
   .menu-toggle.open span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -167,7 +166,7 @@
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* Controls - Simple Black & White Icons */
+  /* Controls */
   .controls {
     display: flex;
     gap: 10px;
@@ -190,18 +189,12 @@
     transition: var(--transition);
   }
 
-  /* Simple SVG icons - black & white style */
   .icon-btn svg {
     width: 20px;
     height: 20px;
     stroke: currentColor;
     stroke-width: 1.8;
     fill: none;
-  }
-
-  /* Speaker icon specific */
-  .icon-btn .speaker-icon {
-    stroke: currentColor;
   }
 
   .icon-btn:hover {
@@ -281,7 +274,6 @@
       border-radius: 40px;
     }
 
-    /* Overlay when menu is open */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -410,7 +402,6 @@
     background: transparent;
     border: 1.5px solid var(--primary);
     color: var(--primary);
-    margin-left: 14px;
   }
   .btn-outline:hover {
     background: var(--primary);
@@ -430,6 +421,33 @@
     color: #1C1812;
   }
 
+  /* HOME page button group - responsive stacking */
+  .btn-group-home {
+    margin-top: 28px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .btn-group-home .btn,
+  .btn-group-home .btn-outline {
+    flex: 0 0 auto;
+  }
+  
+  /* On small screens, make buttons full width and stack */
+  @media (max-width: 480px) {
+    .btn-group-home {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-group-home .btn,
+    .btn-group-home .btn-outline {
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+    }
+  }
+
   /* HOME page */
   .home-grid {
     display: grid;
@@ -438,7 +456,9 @@
     margin: 32px 0 20px;
     align-items: center;
   }
-  @media (max-width: 880px) { .home-grid { grid-template-columns: 1fr; gap: 32px; } }
+  @media (max-width: 880px) { 
+    .home-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
   .hero-img {
     width: 100%;
     max-width: 380px;
@@ -457,12 +477,6 @@
     background: var(--surface);
     border-radius: 48px;
     border: 1px solid var(--border-light);
-  }
-  .btn-group-home {
-    margin-top: 28px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
   }
 
   /* ABOUT page */
@@ -683,14 +697,12 @@
   <div class="container nav-bar">
     <a class="logo" onclick="goTo('home')">Zuha<span> K.</span></a>
     
-    <!-- Hamburger Menu Button -->
     <button class="menu-toggle" id="menuToggle" aria-label="Menu">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <!-- Navigation Links -->
     <ul class="nav-links" id="navLinks">
       <li><a data-link="home" class="active" onclick="goTo('home')">HOME</a></li>
       <li><a data-link="about" onclick="goTo('about')">ABOUT ME</a></li>
@@ -728,13 +740,12 @@
   </div>
 </header>
 
-<!-- Mobile menu overlay -->
 <div class="menu-overlay" id="menuOverlay"></div>
 
 <main class="container">
-  <!-- HOME page content same as original -->
+  <!-- HOME PAGE with updated tag text and responsive buttons -->
   <section class="page active" id="home">
-    <div class="section-tag">// DIGITAL CRAFT & LEADERSHIP</div>
+    <div class="section-tag">// WELCOME TO MY PORTFOLIO</div>
     <h1>Hi, I'm <span style="color:var(--primary)">Zuha K.</span></h1>
     <div class="home-grid">
       <div class="panel">
@@ -754,7 +765,7 @@
     </div>
   </section>
 
-  <!-- ABOUT, SKILLS, CONTACT sections remain identical to original -->
+  <!-- ABOUT PAGE -->
   <section class="page" id="about">
     <div class="section-tag lg">// ABOUT ME</div>
     <div class="about-grid">
@@ -796,6 +807,7 @@
     </div>
   </section>
 
+  <!-- SKILLS PAGE -->
   <section class="page" id="skills">
     <div class="section-tag lg">// CORE COMPETENCIES</div>
     <p class="lead">Precision, depth, and continuous growth — visualized through progressive skill mastery levels.</p>
@@ -820,6 +832,7 @@
     <div class="sports"><div><div class="section-tag">[ SPORTS HIGHLIGHTS ]</div><h2>Athletic Journey</h2><div class="sport-list"><div class="sport-item">🏆 Winners of relay races</div><div class="sport-item">🏆 Inter-school basketball</div><div class="sport-item">🏆 Team sports involvement</div></div></div><img class="sport-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80" alt="Sports action"></div>
   </section>
 
+  <!-- CONTACT PAGE -->
   <section class="page" id="contact">
     <div class="section-tag">// START A CONVERSATION</div>
     <h1>Let's Connect</h1>
@@ -879,14 +892,12 @@
     menuOverlay.addEventListener('click', closeMenu);
   }
 
-  // Close menu when window resizes above mobile breakpoint
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
       closeMenu();
     }
   });
 
-  // Close menu when a nav link is clicked
   document.querySelectorAll('.nav-links li a').forEach(link => {
     link.addEventListener('click', () => {
       if (window.innerWidth <= 768) {
@@ -895,7 +906,6 @@
     });
   });
 
-  // Page navigation
   function goTo(target) {
     stopReading();
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -912,10 +922,7 @@
     });
   }
 
-  // Theme toggle with icon swap (simple sun/moon)
   const themeToggle = document.getElementById('themeToggle');
-  let isDark = false;
-  
   function updateThemeIcon() {
     const themeIcon = themeToggle?.querySelector('.theme-icon');
     if (!themeIcon) return;
@@ -933,7 +940,6 @@
     };
   }
 
-  // Read aloud functionality
   const readBtn = document.getElementById('readBtn');
   const readMenu = document.getElementById('readMenu');
   
@@ -971,7 +977,6 @@
     readMenu?.classList.remove('show');
   }
 
-  // Contact form
   const form = document.getElementById('contactForm');
   const msgDiv = document.getElementById('formMsg');
   const sendBtn = document.getElementById('sendBtn');
