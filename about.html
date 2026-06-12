@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Zuha K. — About Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #F7F1E8;
+    --surface: #FFFFFF;
+    --text-primary: #2E1C1A;
+    --text-secondary: #5C3E3A;
+    --muted-light: #8A6C66;
+    --primary: #800020;
+    --primary-deep: #5C0016;
+    --accent: #D4AF37;
+    --border-light: #E6D9CE;
+    --shadow-sm: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 20px 35px -12px rgba(60, 30, 25, 0.1);
+    --radius-card: 28px;
+    --transition: all 0.25s ease;
+  }
+
+  body.dark {
+    --bg: #120C0B;
+    --surface: #1F1614;
+    --text-primary: #F2E7DA;
+    --text-secondary: #DDCFBF;
+    --muted-light: #B7A18F;
+    --primary: #D4AF37;
+    --primary-deep: #B88F2A;
+    --accent: #800020;
+    --border-light: #3A2B27;
+    --shadow-md: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.55;
+    transition: background 0.3s, color 0.2s;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 0;
+    min-height: 68px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.7rem;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 1002;
+    margin-left: 8px;
+    position: relative;
+  }
+  .logo span { color: var(--primary); }
+
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    text-decoration: none;
+    color: var(--text-primary);
+    padding: 8px 20px;
+    border: 1.2px solid var(--border-light);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: var(--transition);
+    background: transparent;
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav-links li a:hover,
+  .nav-links li a.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(128, 0, 32, 0.05);
+    transform: translateY(-2px);
+  }
+
+  body.dark .nav-links li a:hover,
+  body.dark .nav-links li a.active {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(212, 175, 55, 0.12);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1.2px solid var(--border-light);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    z-index: 1002;
+    transition: var(--transition);
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: var(--transition);
+    border-radius: 2px;
+    will-change: transform, opacity;
+  }
+
+  .menu-toggle:hover {
+    border-color: var(--primary);
+  }
+
+  .menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+    z-index: 1002;
+    margin-right: 8px;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+    border: 1.2px solid var(--border-light);
+    background: var(--surface);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    transition: var(--transition);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .icon-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+    pointer-events: none;
+  }
+
+  .icon-btn:hover {
+    border-color: var(--primary);
+    transform: scale(0.96);
+    background: color-mix(in oklab, var(--primary) 8%, var(--surface));
+  }
+
+  .read-menu {
+    position: absolute;
+    top: 54px;
+    right: 0;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    box-shadow: var(--shadow-md);
+    min-width: 210px;
+    padding: 8px;
+    display: none;
+    z-index: 1003;
+  }
+  .read-menu.show { display: block; animation: fadeMenu 0.2s; }
+  @keyframes fadeMenu { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .read-menu button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    border-radius: 18px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    touch-action: manipulation;
+  }
+  .read-menu button:hover { background: var(--bg); }
+
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 20px;
+    }
+
+    .logo {
+      margin-left: 0;
+    }
+
+    .controls {
+      margin-right: 0;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+      width: 280px;
+      max-width: 80%;
+      height: 100vh;
+      height: 100dvh;
+      background: var(--surface);
+      flex-direction: column;
+      padding: 90px 24px 40px;
+      gap: 16px;
+      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      z-index: 1001;
+      border-right: 1px solid var(--border-light);
+      overflow-y: auto;
+      pointer-events: auto;
+      will-change: transform;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links.open {
+      transform: translateX(0);
+    }
+
+    .nav-links li {
+      width: 100%;
+    }
+
+    .nav-links li a {
+      display: block;
+      padding: 14px 20px;
+      text-align: center;
+      font-size: 1rem;
+      border-radius: 40px;
+      width: 100%;
+      pointer-events: auto;
+      cursor: pointer;
+      min-height: 44px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .menu-overlay.active {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .controls {
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .page { display: block; padding: 48px 0 70px; animation: pageFade 0.5s ease; }
+  @keyframes pageFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  .section-tag {
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-tag::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--primary);
+    opacity: 0.45;
+  }
+  .section-tag.lg {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 20px 0 24px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  h4 {
+    font-size: 0.7rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 12px;
+  }
+  .lead {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  p, li {
+    color: var(--text-secondary);
+  }
+
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+  }
+  .panel:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 36px;
+  }
+  @media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; } }
+  .status-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--border-light);
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  .status-list li::before { content: "✦"; color: var(--primary); font-weight: bold; }
+
+  .leader-card {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 28px;
+    align-items: start;
+  }
+  @media (max-width: 780px) { .leader-card { grid-template-columns: 1fr; gap: 20px; } }
+  .leader-num {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--primary);
+    font-family: 'Inter', monospace;
+    line-height: 1;
+  }
+  .leader-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  .leader-card h4 {
+    font-size: 0.7rem;
+    letter-spacing: 1.6px;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 12px 0 8px;
+  }
+  .leader-card ul {
+    padding-left: 18px;
+    margin-top: 4px;
+  }
+  .leader-card li {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+  }
+
+  .hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 28px;
+    margin-top: 28px;
+  }
+  .hobby-card {
+    background: var(--surface);
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+    transition: 0.25s;
+    cursor: pointer;
+  }
+  .hobby-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: var(--shadow-md);}
+  .hobby-card img { width: 100%; height: 150px; object-fit: cover; }
+  .hobby-card .label { padding: 16px; text-align: center; font-weight: 600; color: var(--text-primary); }
+
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border-light);
+    padding: 52px 0 36px;
+    margin-top: 40px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+  }
+  @media (max-width: 780px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+  }
+  .footer-heading {
+    font-size: 0.7rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+  .footer-grid a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: block;
+    padding: 6px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .footer-grid a:hover {
+    color: var(--primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-bar">
+    <a class="logo" href="index.html">Zuha<span> K.</span></a>
+    
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks" role="navigation" aria-label="Main navigation">
+      <li><a href="index.html">HOME</a></li>
+      <li><a href="about.html" class="active">ABOUT ME</a></li>
+      <li><a href="skills.html">SKILLS</a></li>
+      <li><a href="contact.html">CONTACT ME</a></li>
+    </ul>
+
+    <div class="controls">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark mode">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="readBtn" title="Read aloud" aria-label="Read aloud options">
+        <svg class="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </button>
+      <div class="read-menu" id="readMenu" role="menu" aria-label="Read aloud options">
+        <button role="menuitem"><span aria-hidden="true">▶</span> Read full text</button>
+        <button role="menuitem"><span aria-hidden="true">✎</span> Read selected text</button>
+        <button role="menuitem"><span aria-hidden="true">⏹</span> Stop reading</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+
+<main class="container">
+  <section class="page" id="about">
+    <div class="section-tag lg">// ABOUT ME</div>
+    <div class="about-grid">
+      <div>
+        <p class="lead">I'm Zuha, a driven and curious individual with a deep interest in technology, innovation, and leadership. My journey spans STEM competitions, robotics events, academic achievement, and community service.</p>
+        <p class="lead">I aspire to build a career in Information Technology, combining technical skills with strong leadership and communication abilities. I believe in continuous learning and am always seeking new challenges to grow both personally and professionally.</p>
+      </div>
+      <div class="panel">
+        <h4>// STATUS</h4>
+        <ul class="status-list" style="list-style:none; padding-left:0">
+          <li>STEM Tutor</li><li>Robotics Enthusiast</li><li>Aspiring IT Professional</li><li>House Captain</li><li>Web Developer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="leadership">
+      <div class="section-tag">[ LEADERSHIP & TEAMWORK ]</div>
+      <h2>Leading by Example</h2>
+      <div class="leader-card panel">
+        <div class="leader-num">01</div>
+        <div><h3>House Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led house activities and organised team participation</li><li>Motivated students and represented the house in competitions</li></ul></div>
+        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the house to victory in inter-house competitions</li><li>Demonstrated leadership, teamwork, and organisational skills</li></ul></div>
+      </div>
+      <div class="leader-card panel">
+        <div class="leader-num">02</div>
+        <div><h3>Basketball Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led the basketball team and encouraged teamwork</li><li>Organised training sessions and game strategy</li></ul></div>
+        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the team to win inter-house basketball competitions</li><li>Participated in inter-school basketball competitions</li><li>Demonstrated communication and leadership abilities</li></ul></div>
+      </div>
+    </div>
+    <div class="hobbies">
+      <div class="section-tag">[ HOBBIES & INTERESTS ]</div>
+      <h2>Beyond The Code</h2>
+      <div class="hobby-grid">
+        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Photography"><div class="label">📷 Photography</div></div>
+        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=600&q=80" alt="Arts"><div class="label">🎨 Arts</div></div>
+        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Sports"><div class="label">🏀 Sports</div></div>
+        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="App Dev"><div class="label">📱 App Dev</div></div>
+        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=600&q=80" alt="Robotics"><div class="label">🤖 Robotics</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="logo" style="font-size:1.3rem">Zuha<span style="color:var(--primary)"> K.</span></div>
+      <p style="margin-top:10px;">Crafting digital solutions with precision and purpose.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    'use strict';
+    
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    let scrollPosition = 0;
+    
+    function closeMenu() {
+      if (!navLinks.classList.contains('open')) return;
+      
+      navLinks.classList.remove('open');
+      if (menuOverlay) {
+        menuOverlay.classList.remove('active');
+        menuOverlay.setAttribute('aria-hidden', 'true');
+      }
+      if (menuToggle) {
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+      }
+      document.body.classList.remove('menu-open');
+      
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPosition);
+    }
+
+    function openMenu() {
+      if (navLinks.classList.contains('open')) return;
+      
+      scrollPosition = window.pageYOffset;
+      
+      navLinks.classList.add('open');
+      if (menuOverlay) {
+        menuOverlay.classList.add('active');
+        menuOverlay.setAttribute('aria-hidden', 'false');
+      }
+      if (menuToggle) {
+        menuToggle.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.setAttribute('aria-label', 'Close menu');
+      }
+      document.body.classList.add('menu-open');
+    }
+
+    let resizeTimeout;
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function() {
+        if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+          closeMenu();
+        }
+      }, 150);
+    }
+
+    if (menuToggle) {
+      const newToggle = menuToggle.cloneNode(true);
+      menuToggle.parentNode.replaceChild(newToggle, menuToggle);
+      
+      const freshToggle = document.getElementById('menuToggle');
+      
+      freshToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (navLinks.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
+
+    if (menuOverlay) {
+      const newOverlay = menuOverlay.cloneNode(true);
+      menuOverlay.parentNode.replaceChild(newOverlay, menuOverlay);
+      
+      const freshOverlay = document.getElementById('menuOverlay');
+      
+      freshOverlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        e.preventDefault();
+        closeMenu();
+        const toggle = document.getElementById('menuToggle');
+        if (toggle) toggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', handleResize);
+    
+    window.addEventListener('orientationchange', function() {
+      setTimeout(handleResize, 300);
+    });
+
+    // Close menu when clicking navigation links
+    document.querySelectorAll('#navLinks a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (navLinks.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    
+    function updateThemeIcon() {
+      const themeIcon = themeToggle?.querySelector('.theme-icon');
+      if (!themeIcon) return;
+      if (document.body.classList.contains('dark')) {
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+      } else {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      }
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.toggle('dark');
+        updateThemeIcon();
+        try {
+          localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        } catch (err) {}
+      });
+    }
+    
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        updateThemeIcon();
+      }
+    } catch (err) {}
+
+    // Read aloud functionality
+    const readBtn = document.getElementById('readBtn');
+    const readMenu = document.getElementById('readMenu');
+    
+    if (readBtn && readMenu) {
+      readBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        readMenu.classList.toggle('show');
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!readMenu.contains(e.target) && e.target !== readBtn) {
+          readMenu.classList.remove('show');
+        }
+      });
+      
+      const readButtons = readMenu.querySelectorAll('button');
+      if (readButtons.length >= 3) {
+        readButtons[0].addEventListener('click', function(e) {
+          e.preventDefault();
+          speakFull();
+        });
+        readButtons[1].addEventListener('click', function(e) {
+          e.preventDefault();
+          speakSelected();
+        });
+        readButtons[2].addEventListener('click', function(e) {
+          e.preventDefault();
+          stopReading();
+        });
+      }
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.98;
+      speechSynthesis.speak(utterance);
+    }
+
+    function speakFull() {
+      const mainContent = document.querySelector('main');
+      speak(mainContent ? mainContent.innerText : '');
+      if (readMenu) readMenu.classList.remove('show');
+    }
+
+    function speakSelected() {
+      const selection = window.getSelection().toString().trim();
+      if (!selection) {
+        alert('Please highlight some text first.');
+        return;
+      }
+      speak(selection);
+      if (readMenu) readMenu.classList.remove('show');
+    }
+
+    function stopReading() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      if (readMenu) readMenu.classList.remove('show');
+    }
+
+    // Initialize
+    if (menuOverlay) {
+      menuOverlay.setAttribute('aria-hidden', 'true');
+    }
+  })();
+</script>
+</body>
+</html>
