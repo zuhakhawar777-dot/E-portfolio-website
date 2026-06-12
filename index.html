@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Zuha K. — Portfolio | Mobile Responsive</title>
+<title>Zuha K. — Portfolio | Home</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <style>
@@ -52,13 +52,18 @@
     overflow-x: hidden;
   }
 
+  body.menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
   .container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 32px;
   }
 
-  /* Header */
   header {
     position: sticky;
     top: 0;
@@ -86,15 +91,15 @@
     text-decoration: none;
     cursor: pointer;
     z-index: 1002;
+    margin-left: 8px;
+    position: relative;
   }
   .logo span { color: var(--primary); }
 
-  /* Desktop Navigation */
   .nav-links {
     display: flex;
     gap: 10px;
     list-style: none;
-    transition: var(--transition);
   }
 
   .nav-links li a {
@@ -110,6 +115,10 @@
     background: transparent;
     cursor: pointer;
     display: inline-block;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .nav-links li a:hover,
@@ -127,7 +136,6 @@
     background: rgba(212, 175, 55, 0.12);
   }
 
-  /* Mobile Menu Button - Hamburger */
   .menu-toggle {
     display: none;
     background: transparent;
@@ -142,6 +150,9 @@
     gap: 5px;
     z-index: 1002;
     transition: var(--transition);
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .menu-toggle span {
@@ -150,6 +161,7 @@
     background: var(--text-primary);
     transition: var(--transition);
     border-radius: 2px;
+    will-change: transform, opacity;
   }
 
   .menu-toggle:hover {
@@ -157,22 +169,24 @@
   }
 
   .menu-toggle.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: translateY(7px) rotate(45deg);
   }
+
   .menu-toggle.open span:nth-child(2) {
     opacity: 0;
   }
+
   .menu-toggle.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Controls */
   .controls {
     display: flex;
     gap: 10px;
     align-items: center;
     position: relative;
     z-index: 1002;
+    margin-right: 8px;
   }
 
   .icon-btn {
@@ -187,6 +201,8 @@
     justify-content: center;
     color: var(--text-primary);
     transition: var(--transition);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .icon-btn svg {
@@ -195,6 +211,7 @@
     stroke: currentColor;
     stroke-width: 1.8;
     fill: none;
+    pointer-events: none;
   }
 
   .icon-btn:hover {
@@ -232,13 +249,21 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    touch-action: manipulation;
   }
   .read-menu button:hover { background: var(--bg); }
 
-  /* Mobile responsive styles */
   @media (max-width: 768px) {
     .container {
       padding: 0 20px;
+    }
+
+    .logo {
+      margin-left: 0;
+    }
+
+    .controls {
+      margin-right: 0;
     }
 
     .menu-toggle {
@@ -248,30 +273,45 @@
     .nav-links {
       position: fixed;
       top: 0;
-      left: -100%;
-      width: 75%;
-      max-width: 300px;
+      left: 0;
+      transform: translateX(-100%);
+      width: 280px;
+      max-width: 80%;
       height: 100vh;
+      height: 100dvh;
       background: var(--surface);
       flex-direction: column;
-      padding: 90px 24px 30px;
-      gap: 12px;
-      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
-      transition: left 0.3s ease-in-out;
+      padding: 90px 24px 40px;
+      gap: 16px;
+      box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
       z-index: 1001;
       border-right: 1px solid var(--border-light);
+      overflow-y: auto;
+      pointer-events: auto;
+      will-change: transform;
+      -webkit-overflow-scrolling: touch;
     }
 
     .nav-links.open {
-      left: 0;
+      transform: translateX(0);
+    }
+
+    .nav-links li {
+      width: 100%;
     }
 
     .nav-links li a {
       display: block;
-      padding: 12px 20px;
+      padding: 14px 20px;
       text-align: center;
       font-size: 1rem;
       border-radius: 40px;
+      width: 100%;
+      pointer-events: auto;
+      cursor: pointer;
+      min-height: 44px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .menu-overlay {
@@ -280,13 +320,20 @@
       left: 0;
       width: 100%;
       height: 100%;
+      height: 100dvh;
       background: rgba(0, 0, 0, 0.5);
       z-index: 1000;
       display: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .menu-overlay.active {
       display: block;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .controls {
@@ -299,12 +346,9 @@
     }
   }
 
-  /* Page system */
-  .page { display: none; padding: 48px 0 70px; animation: pageFade 0.5s ease; }
-  .page.active { display: block; }
+  .page { display: block; padding: 48px 0 70px; animation: pageFade 0.5s ease; }
   @keyframes pageFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 
-  /* Typography */
   .section-tag {
     font-weight: 600;
     font-size: 0.7rem;
@@ -370,7 +414,6 @@
     color: var(--text-secondary);
   }
 
-  /* Cards */
   .panel {
     background: var(--surface);
     border-radius: var(--radius-card);
@@ -385,7 +428,6 @@
     border-color: var(--accent);
   }
 
-  /* Buttons */
   .btn {
     display: inline-block;
     padding: 12px 32px;
@@ -397,6 +439,9 @@
     border: none;
     cursor: pointer;
     transition: var(--transition);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
   }
   .btn-outline {
     background: transparent;
@@ -421,7 +466,6 @@
     color: #1C1812;
   }
 
-  /* HOME page button group - responsive stacking */
   .btn-group-home {
     margin-top: 28px;
     display: flex;
@@ -429,12 +473,6 @@
     flex-wrap: wrap;
   }
   
-  .btn-group-home .btn,
-  .btn-group-home .btn-outline {
-    flex: 0 0 auto;
-  }
-  
-  /* On small screens, make buttons full width and stack */
   @media (max-width: 480px) {
     .btn-group-home {
       flex-direction: column;
@@ -448,7 +486,6 @@
     }
   }
 
-  /* HOME page */
   .home-grid {
     display: grid;
     grid-template-columns: 1.2fr 0.9fr;
@@ -479,184 +516,6 @@
     border: 1px solid var(--border-light);
   }
 
-  /* ABOUT page */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 36px;
-  }
-  @media (max-width: 880px) { .about-grid { grid-template-columns: 1fr; } }
-  .status-list li {
-    padding: 12px 0;
-    border-bottom: 1px dashed var(--border-light);
-    list-style: none;
-    display: flex;
-    gap: 12px;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-  .status-list li::before { content: "✦"; color: var(--primary); font-weight: bold; }
-
-  .leader-card {
-    display: grid;
-    grid-template-columns: 80px 1fr 1fr;
-    gap: 32px;
-    margin-bottom: 28px;
-    align-items: start;
-  }
-  @media (max-width: 780px) { .leader-card { grid-template-columns: 1fr; gap: 20px; } }
-  .leader-num {
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: var(--primary);
-    font-family: 'Inter', monospace;
-    line-height: 1;
-  }
-  .leader-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--text-primary);
-  }
-  .leader-card h4 {
-    font-size: 0.7rem;
-    letter-spacing: 1.6px;
-    font-weight: 700;
-    color: var(--primary);
-    margin: 12px 0 8px;
-  }
-  .leader-card ul {
-    padding-left: 18px;
-    margin-top: 4px;
-  }
-  .leader-card li {
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-  }
-
-  .hobby-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 28px;
-    margin-top: 28px;
-  }
-  .hobby-card {
-    background: var(--surface);
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid var(--border-light);
-    transition: 0.25s;
-    cursor: pointer;
-  }
-  .hobby-card:hover { transform: translateY(-6px); border-color: var(--primary); box-shadow: var(--shadow-md);}
-  .hobby-card img { width: 100%; height: 150px; object-fit: cover; }
-  .hobby-card .label { padding: 16px; text-align: center; font-weight: 600; color: var(--text-primary); }
-
-  /* SKILLS */
-  .skills-hero {
-    background: var(--surface);
-    border-radius: var(--radius-card);
-    padding: 32px;
-    margin-bottom: 40px;
-    border: 1px solid var(--border-light);
-  }
-  .level-bars-section {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    margin-top: 20px;
-  }
-  .skill-level-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .skill-level-header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--text-primary);
-  }
-  .progress-bar-bg {
-    width: 100%;
-    height: 8px;
-    background: color-mix(in oklab, var(--border-light) 70%, transparent);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    width: 0%;
-    background: var(--primary);
-    border-radius: 20px;
-    transition: width 1s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  }
-  .skill-meta {
-    font-size: 0.78rem;
-    color: var(--muted-light);
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 28px;
-    margin: 32px 0 24px;
-  }
-  .stat-card {
-    background: var(--surface);
-    border-radius: 28px;
-    padding: 28px 20px;
-    text-align: center;
-    border: 1px solid var(--border-light);
-    transition: 0.2s;
-  }
-  .stat-card:hover { transform: translateY(-3px); border-color: var(--accent);}
-  .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
-
-  .sports {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 32px;
-    margin-top: 48px;
-  }
-  @media (max-width: 780px) { .sports { grid-template-columns: 1fr; } }
-  .sport-list .sport-item {
-    background: var(--surface);
-    border-radius: 24px;
-    padding: 18px 24px;
-    margin-bottom: 14px;
-    border: 1px solid var(--border-light);
-    font-weight: 500;
-    color: var(--text-primary);
-    transition: 0.2s;
-  }
-  .sport-item:hover { border-color: var(--primary); transform: translateX(6px);}
-  .sport-img { width: 100%; height: 280px; object-fit: cover; border-radius: 32px; }
-
-  /* CONTACT */
-  .contact-panel {
-    background: var(--surface);
-    border-radius: 40px;
-    padding: 44px;
-    margin-top: 28px;
-    border: 1px solid var(--border-light);
-  }
-  input, textarea {
-    width: 100%;
-    padding: 16px 22px;
-    border: 1.5px solid var(--border-light);
-    border-radius: 60px;
-    background: var(--bg);
-    font-family: inherit;
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    transition: 0.2s;
-  }
-  textarea { border-radius: 28px; resize: vertical; }
-  input:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2); }
-
   footer {
     background: var(--surface);
     border-top: 1px solid var(--border-light);
@@ -665,54 +524,71 @@
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
   }
-  @media (max-width: 780px) { .footer-grid { grid-template-columns: 1fr; } }
-  .social {
-    display: flex;
-    gap: 16px;
+  @media (max-width: 780px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
   }
-  .social a {
-    width: 46px;
-    height: 46px;
-    border: 1px solid var(--border-light);
-    border-radius: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
+  .footer-heading {
+    font-size: 0.7rem;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 14px;
+  }
+  .footer-grid a {
+    color: var(--text-secondary);
     text-decoration: none;
-    color: var(--text-primary);
+    display: block;
+    padding: 6px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
   }
-  .social a:hover { background: var(--primary); color: white; border-color: var(--primary); }
+  .footer-grid a:hover {
+    color: var(--primary);
+  }
 
-  .form-msg { margin-top: 20px; padding: 12px 20px; border-radius: 60px; display: none; font-weight: 500; }
-  .form-msg.show { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>
 
 <header>
   <div class="container nav-bar">
-    <a class="logo" onclick="goTo('home')">Zuha<span> K.</span></a>
+    <a class="logo" href="index.html">Zuha<span> K.</span></a>
     
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </button>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a data-link="home" class="active" onclick="goTo('home')">HOME</a></li>
-      <li><a data-link="about" onclick="goTo('about')">ABOUT ME</a></li>
-      <li><a data-link="skills" onclick="goTo('skills')">SKILLS</a></li>
-      <li><a data-link="contact" onclick="goTo('contact')">CONTACT ME</a></li>
+    <ul class="nav-links" id="navLinks" role="navigation" aria-label="Main navigation">
+      <li><a href="index.html" class="active">HOME</a></li>
+      <li><a href="about.html">ABOUT ME</a></li>
+      <li><a href="skills.html">SKILLS</a></li>
+      <li><a href="contact.html">CONTACT ME</a></li>
     </ul>
 
     <div class="controls">
-      <button class="icon-btn" id="themeToggle" title="Toggle theme">
-        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle dark mode">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/>
           <line x1="12" y1="21" x2="12" y2="23"/>
@@ -724,316 +600,277 @@
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
       </button>
-      <button class="icon-btn" id="readBtn" title="Read aloud">
-        <svg class="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <button class="icon-btn" id="readBtn" title="Read aloud" aria-label="Read aloud options">
+        <svg class="speaker-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
           <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
           <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
         </svg>
       </button>
-      <div class="read-menu" id="readMenu">
-        <button onclick="speakFull()"><span>▶</span> Read full text</button>
-        <button onclick="speakSelected()"><span>✎</span> Read selected text</button>
-        <button onclick="stopReading()"><span>⏹</span> Stop reading</button>
+      <div class="read-menu" id="readMenu" role="menu" aria-label="Read aloud options">
+        <button role="menuitem"><span aria-hidden="true">▶</span> Read full text</button>
+        <button role="menuitem"><span aria-hidden="true">✎</span> Read selected text</button>
+        <button role="menuitem"><span aria-hidden="true">⏹</span> Stop reading</button>
       </div>
     </div>
   </div>
 </header>
 
-<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
 
 <main class="container">
-  <!-- HOME PAGE with updated tag text and responsive buttons -->
-  <section class="page active" id="home">
+  <section class="page" id="home">
     <div class="section-tag">// WELCOME TO MY PORTFOLIO</div>
     <h1>Hi, I'm <span style="color:var(--primary)">Zuha K.</span></h1>
     <div class="home-grid">
       <div class="panel">
         <p style="font-size:1.05rem; margin-bottom:16px;">A driven and curious individual with a deep interest in technology, innovation, and leadership. I'm passionate about STEM, robotics, and building things that matter.</p>
         <div class="btn-group-home">
-          <button class="btn" onclick="goTo('about')">Learn More →</button>
-          <button class="btn btn-outline" onclick="goTo('contact')">Let's Connect</button>
+          <a href="about.html" class="btn">Learn More →</a>
+          <a href="contact.html" class="btn btn-outline">Let's Connect</a>
         </div>
       </div>
-      <img class="hero-img" src="https://github.com/zuhakhawar777-dot/E-portfolio-website/blob/main/profile%20image.jpeg?raw=true" alt="Zuha portrait">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80" alt="Zuha portrait">
     </div>
     <div class="opportunity">
       <h4 style="margin-bottom:8px;">// OPEN TO OPPORTUNITIES</h4>
       <h2 style="margin-bottom:16px;">Internships & Collaboration</h2>
       <p>I am always open to internships, STEM initiatives, leadership programs, technology projects, competitions, and collaborative opportunities that support learning and growth.</p>
-      <button class="btn" style="margin-top:28px;" onclick="goTo('contact')">Start a Conversation</button>
+      <a href="contact.html" class="btn" style="margin-top:28px;">Start a Conversation</a>
     </div>
-  </section>
-
-  <!-- ABOUT PAGE -->
-  <section class="page" id="about">
-    <div class="section-tag lg">// ABOUT ME</div>
-    <div class="about-grid">
-      <div>
-        <p class="lead">I'm Zuha, a driven and curious individual with a deep interest in technology, innovation, and leadership. My journey spans STEM competitions, robotics events, academic achievement, and community service.</p>
-        <p class="lead">I aspire to build a career in Information Technology, combining technical skills with strong leadership and communication abilities. I believe in continuous learning and am always seeking new challenges to grow both personally and professionally.</p>
-      </div>
-      <div class="panel">
-        <h4>// STATUS</h4>
-        <ul class="status-list" style="list-style:none; padding-left:0">
-          <li>STEM Tutor</li><li>Robotics Enthusiast</li><li>Aspiring IT Professional</li><li>House Captain</li><li>Web Developer</li>
-        </ul>
-      </div>
-    </div>
-    <div class="leadership">
-      <div class="section-tag">[ LEADERSHIP & TEAMWORK ]</div>
-      <h2>Leading by Example</h2>
-      <div class="leader-card panel">
-        <div class="leader-num">01</div>
-        <div><h3>House Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led house activities and organised team participation</li><li>Motivated students and represented the house in competitions</li></ul></div>
-        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the house to victory in inter-house competitions</li><li>Demonstrated leadership, teamwork, and organisational skills</li></ul></div>
-      </div>
-      <div class="leader-card panel">
-        <div class="leader-num">02</div>
-        <div><h3>Basketball Captain</h3><h4>RESPONSIBILITIES</h4><ul><li>Led the basketball team and encouraged teamwork</li><li>Organised training sessions and game strategy</li></ul></div>
-        <div><h4>ACHIEVEMENTS</h4><ul><li>Led the team to win inter-house basketball competitions</li><li>Participated in inter-school basketball competitions</li><li>Demonstrated communication and leadership abilities</li></ul></div>
-      </div>
-    </div>
-    <div class="hobbies">
-      <div class="section-tag">[ HOBBIES & INTERESTS ]</div>
-      <h2>Beyond The Code</h2>
-      <div class="hobby-grid">
-        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=600&q=80" alt="Photography"><div class="label">📷 Photography</div></div>
-        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=600&q=80" alt="Arts"><div class="label">🎨 Arts</div></div>
-        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Sports"><div class="label">🏀 Sports</div></div>
-        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="App Dev"><div class="label">📱 App Dev</div></div>
-        <div class="hobby-card"><img src="https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=600&q=80" alt="Robotics"><div class="label">🤖 Robotics</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS PAGE -->
-  <section class="page" id="skills">
-    <div class="section-tag lg">// CORE COMPETENCIES</div>
-    <p class="lead">Precision, depth, and continuous growth — visualized through progressive skill mastery levels.</p>
-    <div class="skills-hero">
-      <h3 style="margin-bottom:24px; font-weight:600;">⚡ Expertise & Proficiency</h3>
-      <div class="level-bars-section" id="levelBarsContainer">
-        <div class="skill-level-item"><div class="skill-level-header"><span>🌐 Web Development (HTML/CSS/JS)</span><span>85%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="85"></div></div><div class="skill-meta">Responsive design, interactive UIs</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>📊 Productivity Suites</span><span>94%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="94"></div></div><div class="skill-meta">Advanced workflow optimization</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🎨 UI/UX & Creative Design</span><span>88%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="88"></div></div><div class="skill-meta">Canva, infographics, branding</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🤝 Leadership & Communication</span><span>92%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="92"></div></div><div class="skill-meta">Team motivation, public speaking</div></div>
-        <div class="skill-level-item"><div class="skill-level-header"><span>🧠 Analytical Thinking</span><span>89%</span></div><div class="progress-bar-bg"><div class="progress-fill" data-level="89"></div></div><div class="skill-meta">Critical analysis, research</div></div>
-      </div>
-    </div>
-    <div style="margin-top:20px"><div class="section-tag">[ MILESTONES ]</div><h2>Featured Achievements</h2>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-num">3+</div><h4>STEM Awards</h4><p>Regional competitions</p></div>
-        <div class="stat-card"><div class="stat-num">2+</div><h4>Leadership Roles</h4><p>House & Basketball Captain</p></div>
-        <div class="stat-card"><div class="stat-num">3</div><h4>Scholarship</h4><p>Academic excellence</p></div>
-        <div class="stat-card"><div class="stat-num">5+</div><h4>Competitions</h4><p>STEM, robotics & sports</p></div>
-      </div>
-    </div>
-    <div class="sports"><div><div class="section-tag">[ SPORTS HIGHLIGHTS ]</div><h2>Athletic Journey</h2><div class="sport-list"><div class="sport-item">🏆 Winners of relay races</div><div class="sport-item">🏆 Inter-school basketball</div><div class="sport-item">🏆 Team sports involvement</div></div></div><img class="sport-img" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80" alt="Sports action"></div>
-  </section>
-
-  <!-- CONTACT PAGE -->
-  <section class="page" id="contact">
-    <div class="section-tag">// START A CONVERSATION</div>
-    <h1>Let's Connect</h1>
-    <p class="lead">Have a question, an idea, or just want to say hi? Write a message, and it will reach me directly.</p>
-    <form class="contact-panel" id="contactForm" action="https://formsubmit.co/zuhakhawar777@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Portfolio message from Zuha K.">
-      <input type="hidden" name="_captcha" value="false">
-      <div class="form-row" style="margin-bottom:20px"><label style="font-weight:500; margin-bottom:6px; display:block;">Name</label><input id="name" name="name" type="text" placeholder="Your full name"></div>
-      <div class="form-row" style="margin-bottom:20px"><label style="font-weight:500; margin-bottom:6px; display:block;">Email</label><input id="email" name="email" type="email" placeholder="you@example.com"></div>
-      <div class="form-row" style="margin-bottom:20px"><label style="font-weight:500; margin-bottom:6px; display:block;">Message</label><textarea id="message" name="message" placeholder="Write your message..."></textarea></div>
-      <button type="submit" class="btn" id="sendBtn">Send Message →</button>
-      <div class="form-msg" id="formMsg"></div>
-    </form>
   </section>
 </main>
 
 <footer>
   <div class="container footer-grid">
-    <div><div class="logo" style="font-size:1.3rem">Zuha<span style="color:var(--primary)"> K.</span></div><p style="margin-top:10px;">Crafting digital solutions with precision and purpose.</p></div>
-    <div><h4>Quick Links</h4><a onclick="goTo('home')">Home</a><a onclick="goTo('about')">About</a><a onclick="goTo('skills')">Skills</a><a onclick="goTo('contact')">Contact</a></div>
-    <div><h4>Connect</h4><div class="social"><a href="mailto:zuhakhawar777@gmail.com">✉</a><a href="#">in</a><a href="#">⌥</a></div></div>
+    <div>
+      <div class="logo" style="font-size:1.3rem">Zuha<span style="color:var(--primary)"> K.</span></div>
+      <p style="margin-top:10px;">Crafting digital solutions with precision and purpose.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
-  // Mobile Navigation Toggle
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  const menuOverlay = document.getElementById('menuOverlay');
-
-  function closeMenu() {
-    navLinks.classList.remove('open');
-    menuOverlay.classList.remove('active');
-    menuToggle.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function openMenu() {
-    navLinks.classList.add('open');
-    menuOverlay.classList.add('active');
-    menuToggle.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  if (menuToggle) {
-    menuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (navLinks.classList.contains('open')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    });
-  }
-
-  if (menuOverlay) {
-    menuOverlay.addEventListener('click', closeMenu);
-  }
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
-      closeMenu();
-    }
-  });
-
-  document.querySelectorAll('.nav-links li a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 768) {
-        closeMenu();
-      }
-    });
-  });
-
-  function goTo(target) {
-    stopReading();
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(target).classList.add('active');
-    document.querySelectorAll('.nav-links li a').forEach(a => a.classList.toggle('active', a.dataset.link === target));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (target === 'skills') setTimeout(animateLevelBars, 150);
-  }
-
-  function animateLevelBars() {
-    document.querySelectorAll('#levelBarsContainer .progress-fill').forEach(fill => {
-      const level = fill.getAttribute('data-level');
-      if (level) fill.style.width = level + '%';
-    });
-  }
-
-  const themeToggle = document.getElementById('themeToggle');
-  function updateThemeIcon() {
-    const themeIcon = themeToggle?.querySelector('.theme-icon');
-    if (!themeIcon) return;
-    if (document.body.classList.contains('dark')) {
-      themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
-    } else {
-      themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
-    }
-  }
-
-  if (themeToggle) {
-    themeToggle.onclick = () => {
-      document.body.classList.toggle('dark');
-      updateThemeIcon();
-    };
-  }
-
-  const readBtn = document.getElementById('readBtn');
-  const readMenu = document.getElementById('readMenu');
-  
-  if (readBtn && readMenu) {
-    readBtn.onclick = (e) => {
-      e.stopPropagation();
-      readMenu.classList.toggle('show');
-    };
-    document.addEventListener('click', () => readMenu.classList.remove('show'));
-  }
-
-  function speak(text) {
-    if (!('speechSynthesis' in window)) return;
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.98;
-    speechSynthesis.speak(u);
-  }
-
-  function speakFull() {
-    const active = document.querySelector('.page.active');
-    speak(active ? active.innerText : '');
-    readMenu.classList.remove('show');
-  }
-
-  function speakSelected() {
-    const sel = window.getSelection().toString().trim();
-    if (!sel) return alert('Highlight text first');
-    speak(sel);
-    readMenu.classList.remove('show');
-  }
-
-  function stopReading() {
-    if ('speechSynthesis' in window) speechSynthesis.cancel();
-    readMenu?.classList.remove('show');
-  }
-
-  const form = document.getElementById('contactForm');
-  const msgDiv = document.getElementById('formMsg');
-  const sendBtn = document.getElementById('sendBtn');
-
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = form.name.value.trim();
-      const email = form.email.value.trim();
-      const message = form.message.value.trim();
-      const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  (function() {
+    'use strict';
+    
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    let scrollPosition = 0;
+    
+    function closeMenu() {
+      if (!navLinks.classList.contains('open')) return;
       
-      if (!name || !email || !message || !validEmail) {
-        if (msgDiv) {
-          msgDiv.textContent = '⚠ Please fill all fields with a valid email address.';
-          msgDiv.classList.add('show', 'error');
+      navLinks.classList.remove('open');
+      if (menuOverlay) {
+        menuOverlay.classList.remove('active');
+        menuOverlay.setAttribute('aria-hidden', 'true');
+      }
+      if (menuToggle) {
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+      }
+      document.body.classList.remove('menu-open');
+      
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollPosition);
+    }
+
+    function openMenu() {
+      if (navLinks.classList.contains('open')) return;
+      
+      scrollPosition = window.pageYOffset;
+      
+      navLinks.classList.add('open');
+      if (menuOverlay) {
+        menuOverlay.classList.add('active');
+        menuOverlay.setAttribute('aria-hidden', 'false');
+      }
+      if (menuToggle) {
+        menuToggle.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.setAttribute('aria-label', 'Close menu');
+      }
+      document.body.classList.add('menu-open');
+    }
+
+    let resizeTimeout;
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(function() {
+        if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+          closeMenu();
         }
+      }, 150);
+    }
+
+    if (menuToggle) {
+      const newToggle = menuToggle.cloneNode(true);
+      menuToggle.parentNode.replaceChild(newToggle, menuToggle);
+      
+      const freshToggle = document.getElementById('menuToggle');
+      
+      freshToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (navLinks.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+    }
+
+    if (menuOverlay) {
+      const newOverlay = menuOverlay.cloneNode(true);
+      menuOverlay.parentNode.replaceChild(newOverlay, menuOverlay);
+      
+      const freshOverlay = document.getElementById('menuOverlay');
+      
+      freshOverlay.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        e.preventDefault();
+        closeMenu();
+        const toggle = document.getElementById('menuToggle');
+        if (toggle) toggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', handleResize);
+    
+    window.addEventListener('orientationchange', function() {
+      setTimeout(handleResize, 300);
+    });
+
+    // Close menu when clicking navigation links
+    document.querySelectorAll('#navLinks a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (navLinks.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    
+    function updateThemeIcon() {
+      const themeIcon = themeToggle?.querySelector('.theme-icon');
+      if (!themeIcon) return;
+      if (document.body.classList.contains('dark')) {
+        themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+      } else {
+        themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      }
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.toggle('dark');
+        updateThemeIcon();
+        try {
+          localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        } catch (err) {}
+      });
+    }
+    
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        updateThemeIcon();
+      }
+    } catch (err) {}
+
+    // Read aloud functionality
+    const readBtn = document.getElementById('readBtn');
+    const readMenu = document.getElementById('readMenu');
+    
+    if (readBtn && readMenu) {
+      readBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        readMenu.classList.toggle('show');
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!readMenu.contains(e.target) && e.target !== readBtn) {
+          readMenu.classList.remove('show');
+        }
+      });
+      
+      const readButtons = readMenu.querySelectorAll('button');
+      if (readButtons.length >= 3) {
+        readButtons[0].addEventListener('click', function(e) {
+          e.preventDefault();
+          speakFull();
+        });
+        readButtons[1].addEventListener('click', function(e) {
+          e.preventDefault();
+          speakSelected();
+        });
+        readButtons[2].addEventListener('click', function(e) {
+          e.preventDefault();
+          stopReading();
+        });
+      }
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.98;
+      speechSynthesis.speak(utterance);
+    }
+
+    function speakFull() {
+      const mainContent = document.querySelector('main');
+      speak(mainContent ? mainContent.innerText : '');
+      if (readMenu) readMenu.classList.remove('show');
+    }
+
+    function speakSelected() {
+      const selection = window.getSelection().toString().trim();
+      if (!selection) {
+        alert('Please highlight some text first.');
         return;
       }
-      
-      if (sendBtn) {
-        sendBtn.disabled = true;
-        sendBtn.textContent = 'Sending...';
-      }
-      
-      try {
-        const fd = new FormData(form);
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: fd,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          if (msgDiv) {
-            msgDiv.textContent = '✓ Message sent successfully!';
-            msgDiv.classList.add('show', 'success');
-          }
-          form.reset();
-        } else throw new Error();
-      } catch (err) {
-        if (msgDiv) {
-          msgDiv.textContent = '⚠ Could not send. Please try again.';
-          msgDiv.classList.add('show', 'error');
-        }
-      } finally {
-        if (sendBtn) {
-          sendBtn.disabled = false;
-          sendBtn.textContent = 'Send Message →';
-        }
-        if (msgDiv) setTimeout(() => msgDiv.classList.remove('show'), 4500);
-      }
-    });
-  }
+      speak(selection);
+      if (readMenu) readMenu.classList.remove('show');
+    }
 
-  window.addEventListener('load', () => {
-    if (document.querySelector('#skills').classList.contains('active')) animateLevelBars();
-  });
+    function stopReading() {
+      if ('speechSynthesis' in window) speechSynthesis.cancel();
+      if (readMenu) readMenu.classList.remove('show');
+    }
+
+    // Initialize
+    if (menuOverlay) {
+      menuOverlay.setAttribute('aria-hidden', 'true');
+    }
+  })();
 </script>
 </body>
 </html>
